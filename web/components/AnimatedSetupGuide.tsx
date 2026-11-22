@@ -12,6 +12,8 @@ interface StatusResponse {
   connectedAccounts: number;
 }
 
+const STORAGE_KEY = 'reply-deck-setup-page';
+
 const CHECKS: { key: CheckKey; label: string }[] = [
   { key: 'appId', label: 'App number' },
   { key: 'appSecret', label: 'App secret' },
@@ -81,6 +83,10 @@ export default function AnimatedSetupGuide() {
       const data = (await response.json()) as StatusResponse;
       setStatus(data);
       setOrigin(data.origin || origin);
+      if (window.localStorage.getItem(STORAGE_KEY) === null) {
+        const allSet = Object.values(data.checks).every(Boolean);
+        setPage(allSet ? 4 : 0);
+      }
     } catch {
       setStatus(null);
     }
@@ -205,6 +211,7 @@ export default function AnimatedSetupGuide() {
           body: (
             <>
               <p>In Meta, go to App Settings → Basic. Paste each link and save changes.</p>
+              <button className="wiz-copy-all" onClick={() => void copyAllLinks()}>Copy all four links</button>
               <CopyRow label="Privacy link" value={privacyUrl} />
               <CopyRow label="Terms link" value={termsUrl} />
               <CopyRow label="When user leaves" value={leaveUrl} />
@@ -251,7 +258,13 @@ export default function AnimatedSetupGuide() {
   function go(next: number) {
     setDirection(next > page ? 'next' : 'back');
     setPage(next);
+    window.localStorage.setItem(STORAGE_KEY, String(next));
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  async function copyAllLinks() {
+    const links = [privacyUrl, termsUrl, leaveUrl, deleteUrl].join('\n');
+    await navigator.clipboard.writeText(links);
   }
 
   const current = pages[page];

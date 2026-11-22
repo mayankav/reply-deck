@@ -29,6 +29,7 @@ export default function Home() {
             <div className="hero-actions">
               <ConnectButton />
               <a className="btn" href="/setup">Setup guide</a>
+              <a className="btn" href="https://deploy.workers.cloudflare.com/?url=https://github.com/mayankav/reply-deck" target="_blank" rel="noreferrer">Deploy your own</a>
               <a className="btn btn-ghost" href="#how">How it works</a>
             </div>
             <p className="hint" style={{ marginTop: 18 }}>

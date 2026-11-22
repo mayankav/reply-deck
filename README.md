@@ -24,6 +24,8 @@ You do not download code. You do not use a terminal. You do not pay a monthly fe
 
 ## Start here
 
+[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/mayankav/reply-deck)
+
 Follow the guide from the top. It shows where to get the two numbers:
 
 [Setup guide](https://github.com/mayankav/reply-deck/blob/main/SETUP.md)
