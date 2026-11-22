@@ -1,32 +1,40 @@
 # Reply Deck
 
-Self-hosted tool for Instagram DM carousels. You use your own Meta app and your own Instagram account. No shared app. No app review.
+Send a swipeable Instagram carousel when someone messages you a keyword or comments on your Reel.
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/mayankav/reply-deck)
+You use your own Meta app and your own Instagram account. You do not share them with anyone.
 
-## What it does
+## Start here
 
-- Sends a swipeable carousel when a user messages you a keyword.
-- Sends a private reply when a user comments a keyword on a Reel.
-- Sends another carousel when a user selects a postback button.
-- Builds the carousels in a visual editor. You upload cover images.
-- Refreshes the Instagram login token every day.
-
-## Setup
-
-Follow [SETUP.md](SETUP.md). It uses short steps and plain words. It takes about 20 minutes.
-
-The Deploy button asks for three values:
+Open this link to make your own copy of the app:
 
 ```
-IG_APP_ID          Instagram App ID
-IG_APP_SECRET      Instagram App Secret
-META_VERIFY_TOKEN  A long phrase you make up
+https://deploy.workers.cloudflare.com/?url=https://github.com/mayankav/reply-deck
 ```
 
-The app makes its signing keys from the App Secret. You do not create more keys.
+Then follow the guide: https://github.com/mayankav/reply-deck/blob/main/SETUP.md
 
-## Local run
+The guide uses short steps. It takes about 20 minutes.
+
+On that link, Cloudflare asks for three values:
+
+```
+App ID       the first number from Meta
+App Secret   the second number from Meta
+My phrase    a long sentence you make up
+```
+
+The app makes its other keys from the App Secret. You do not create more keys.
+
+Cloudflare is the free service that runs your app. Meta is the company that owns Instagram.
+
+## What you can do
+
+- Send a carousel when someone messages a keyword.
+- Send a private reply when someone comments a keyword on a Reel.
+- Build the cards in a visual editor. You upload the cover images.
+
+## Run it on your computer
 
 ```bash
 npm install
@@ -37,22 +45,16 @@ npm run dev
 
 Open http://localhost:8787
 
-The values in `.dev.vars` are examples. The Setup page shows them as missing. That is correct for a local demo.
+The values in `.dev.vars` are examples. The Setup page shows them as missing. That is correct for a local test.
 
 ## Commands
 
 | Command | Use |
 | --- | --- |
-| `npm run dev` | Build the UI and start the app |
-| `npm run build` | Build the UI only |
+| `npm run dev` | Build the screens and start the app |
+| `npm run build` | Build the screens only |
 | `npm run typecheck` | Check the code |
-| `npm run db:local` | Create the local tables |
-| `npm run deploy` | Build, update the database, deploy |
-
-## Notes
-
-- Use the Instagram mobile app for tests. Desktop does not show these carousels.
-- Send a reply within 24 hours. Meta blocks later replies.
-- One comment gets one private reply.
+| `npm run db:local` | Make the local storage |
+| `npm run deploy` | Deploy your copy |
 
 License: MIT.

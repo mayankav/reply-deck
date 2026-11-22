@@ -1,17 +1,21 @@
-# Reply Deck — setup
+# Reply Deck setup
 
-## What you need
+## Read this first
 
-- A Cloudflare account. Free.
-- A Meta account. Free.
+Two websites are used:
+
+- **Cloudflare** runs your app for free.
+- **Meta** owns Instagram. You make the login on Meta's website.
+
+You need:
+
 - An Instagram Business or Creator account.
+- A Meta account.
 - About 20 minutes.
-
-Cloudflare hosts the app. Meta gives you the Instagram login. You own both.
 
 ---
 
-## Step 1 — Make your Instagram account professional
+## Step 1 — Make your Instagram account for business
 
 1. Open Instagram on your phone.
 2. Go to Settings → Account → Switch to professional account.
@@ -22,101 +26,106 @@ Help: https://business.instagram.com/getting-started
 
 ---
 
-## Step 2 — Create your Meta app
+## Step 2 — Get two numbers from Meta
 
 1. Open https://developers.facebook.com/apps/
 2. Select Create app.
 3. Select Other → Business.
 4. Type an app name and your email. Select Create app.
-5. Find Instagram in the list. Select Set up.
-6. Select API setup with Instagram login.
-7. Copy the Instagram App ID. Save it.
-8. Copy the Instagram App Secret. Save it. Do not share it.
+5. Find Instagram. Select Set up.
+6. Select the Instagram login setup.
+7. Copy the App ID. Save it.
+8. Copy the App Secret. Save it. Do not share it.
 
 Help: https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/business-login
 
-Meta may change a label. Keep the same meaning.
+Meta may change a word. Keep the same meaning.
 
 ---
 
-## Step 3 — Make one phrase
+## Step 3 — Make one sentence
 
-Make up a long phrase. Example:
+Make up a long sentence. Example:
 
 ```
 blue-river-92-mango-lamp
 ```
 
-Save it. You paste it in Step 4 and Step 5.
+Save it. You use it in Step 4 and Step 5.
 
 ---
 
-## Step 4 — Deploy your copy
+## Step 4 — Make your own copy of the app
 
-1. Open https://github.com/mayankav/reply-deck
-2. Select the blue Deploy to Cloudflare button.
-3. Select Connect GitHub. Allow.
-4. Select Connect Cloudflare. Allow.
-5. Type a name. Example: `my-reply-deck`
-6. Paste the App ID, the App Secret, and your phrase when asked.
-7. Select Deploy. Wait until it finishes.
-8. Copy the URL Cloudflare gives you.
+Open this link:
 
-Call this URL **YOUR_URL**. Example: `https://my-reply-deck.example.workers.dev`
+```
+https://deploy.workers.cloudflare.com/?url=https://github.com/mayankav/reply-deck
+```
+
+This page is the blue **Deploy to Cloudflare** button shown on the GitHub page. You do not need to find the button. The link does the same work.
+
+1. Select Connect GitHub. Allow.
+2. Select Connect Cloudflare. Allow. If asked to sign up, do it. It is free.
+3. Type a name. Example: `my-reply-deck`
+4. Paste the App ID, the App Secret, and your sentence when asked.
+5. Select Deploy. Wait until it finishes.
+6. Copy the web address Cloudflare gives you.
+
+Call this address **YOUR_URL**. Example: `https://my-reply-deck.example.workers.dev`
 
 ---
 
-## Step 5 — Finish the Meta app
+## Step 5 — Tell Meta where to send messages
 
 Use YOUR_URL from Step 4.
 
-1. In your Meta app, go to Instagram → API setup with Instagram login → Business login settings.
-2. Paste this in Redirect URIs:
+1. On your Meta page, find the Instagram login settings.
+2. Paste this in the return address box:
 
 ```
 YOUR_URL/auth/callback
 ```
 
 3. In the left menu, select Webhooks.
-4. Paste this in Callback URL:
+4. Paste this in the callback box:
 
 ```
 YOUR_URL/webhook
 ```
 
-5. Paste your phrase from Step 3 in Verify token.
+5. Paste your sentence from Step 3 in the verify box.
 6. Select Verify and save.
-7. Select these three fields: `messages`, `messaging_postbacks`, `comments`.
+7. Select these three boxes: `messages`, `messaging_postbacks`, `comments`.
 8. Select Save.
 
 Help: https://developers.facebook.com/documentation/instagram-platform/webhooks/setup
 
 ---
 
-## Step 6 — Add four links
+## Step 6 — Add four links in Meta
 
-In your Meta app, go to App Settings → Basic. Paste these links:
+In Meta, go to App Settings → Basic. Paste:
 
 ```
-Privacy Policy URL       YOUR_URL/privacy
-Terms of Service URL     YOUR_URL/terms
-Deauthorize Callback     YOUR_URL/auth/deauthorize
-Data Deletion Request    YOUR_URL/privacy/data-deletion
+Privacy link              YOUR_URL/privacy
+Terms link                YOUR_URL/terms
+When user leaves          YOUR_URL/auth/deauthorize
+When user deletes data    YOUR_URL/privacy/data-deletion
 ```
 
 Select Save changes.
 
 ---
 
-## Step 7 — Add yourself as tester
+## Step 7 — Add yourself as a tester
 
-1. In your Meta app, go to App Roles → Roles.
-2. Select Add user.
-3. Select Instagram Tester. Do not select Tester.
-4. Type your Instagram username. Do not type @.
-5. Send the invite.
-6. On your phone, open https://www.instagram.com/accounts/manage_access/
-7. Select Tester Invites. Accept the invite.
+1. In Meta, go to App Roles → Roles → Add user.
+2. Select Instagram Tester. Do not select Tester.
+3. Type your Instagram username. Do not type @.
+4. Send the invite.
+5. On your phone, open https://www.instagram.com/accounts/manage_access/
+6. Select Tester Invites. Accept.
 
 ---
 
@@ -128,7 +137,7 @@ Select Save changes.
 4. Log in. Select Allow.
 5. The dashboard opens. It shows your @username.
 
-If a dot is not green, select Refresh status.
+If a dot is not green, select Run check again.
 
 ---
 
@@ -151,9 +160,7 @@ If a dot is not green, select Refresh status.
 
 | Problem | Fix |
 | --- | --- |
-| Webhook shows 403 | The phrase in Step 3 does not match Step 5 |
+| Verify fails | The sentence in Step 3 does not match Step 5 |
 | "Account is not connected" | Accept the tester invite. Use a Business or Creator account |
-| Login shows an error | Redirect URI must equal `YOUR_URL/auth/callback` exactly |
-| No carousel arrives | Use the mobile app. Send within 24 hours of your last message |
-
-Command reference: https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/messaging-api/generic-template
+| Login shows an error | The return address must equal `YOUR_URL/auth/callback` |
+| No carousel arrives | Use the mobile app. Send within 24 hours of the last message |

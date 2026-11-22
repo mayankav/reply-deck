@@ -13,10 +13,10 @@ interface StatusResponse {
 }
 
 const CHECK_LABELS: { key: CheckKey; label: string; hint: string }[] = [
-  { key: 'appId', label: 'Instagram App ID', hint: 'Worker secret' },
-  { key: 'appSecret', label: 'Instagram App Secret', hint: 'Worker secret' },
-  { key: 'verifyToken', label: 'Webhook verify token', hint: 'Worker secret' },
-  { key: 'database', label: 'Database migrated', hint: 'D1 tables' },
+  { key: 'appId', label: 'App number is set', hint: 'From Meta' },
+  { key: 'appSecret', label: 'App secret is set', hint: 'From Meta' },
+  { key: 'verifyToken', label: 'My phrase is set', hint: 'Used in step 4' },
+  { key: 'database', label: 'Storage is ready', hint: 'Your saved carousels' },
 ];
 
 function CopyRow({ label, value }: { label: string; value: string }) {
@@ -43,7 +43,7 @@ function CopyRow({ label, value }: { label: string; value: string }) {
 }
 
 export default function SetupWizard() {
-  const [origin, setOrigin] = useState('https://your-worker.workers.dev');
+  const [origin, setOrigin] = useState('https://your-app.example.workers.dev');
   const [status, setStatus] = useState<StatusResponse | null>(null);
   const [error, setError] = useState('');
 
@@ -55,7 +55,7 @@ export default function SetupWizard() {
       setOrigin(data.origin || origin);
       setError('');
     } catch {
-      setError('Could not read setup status');
+      setError('The check could not run. Try again.');
     }
   }
 
@@ -63,10 +63,10 @@ export default function SetupWizard() {
     void refresh();
   }, []);
 
-  const redirectUri = `${origin}/auth/callback`;
-  const webhookUrl = `${origin}/webhook`;
-  const deauthorizeUrl = `${origin}/auth/deauthorize`;
-  const deletionUrl = `${origin}/privacy/data-deletion`;
+  const callbackUrl = `${origin}/auth/callback`;
+  const messageUrl = `${origin}/webhook`;
+  const leaveUrl = `${origin}/auth/deauthorize`;
+  const deleteUrl = `${origin}/privacy/data-deletion`;
   const privacyUrl = `${origin}/privacy`;
   const termsUrl = `${origin}/terms`;
 
@@ -74,71 +74,110 @@ export default function SetupWizard() {
     <>
       <Header />
       <main className="container">
-        <div className="eyebrow">First run</div>
-        <h1 style={{ fontSize: 38 }}>Set up your own Instagram connection</h1>
+        <div className="eyebrow">First use</div>
+        <h1 style={{ fontSize: 38 }}>Set up your app</h1>
         <p className="lede">
-          This app runs entirely in <strong>your</strong> Cloudflare account with <strong>your</strong> Meta app.
-          Follow the five steps below. The checklist on the right updates live as you go.
+          Your app is live. Do these steps one time. Then you can make carousels.
         </p>
 
-        <div className="builder-grid" style={{ marginTop: 32 }}>
+        <div className="panel">
+          <h3>Two names you will see</h3>
+          <p style={{ margin: 0 }}>
+            <strong>Cloudflare</strong> is the free service that runs your app.{' '}
+            <strong>Meta</strong> is the company that owns Instagram. You set up the login on Meta&apos;s website.
+          </p>
+        </div>
+
+        <div className="builder-grid" style={{ marginTop: 20 }}>
           <div>
             <div className="panel">
-              <h2>1. Create your Meta app</h2>
-              <p>
-                Open the <a href="https://developers.facebook.com/apps/" target="_blank" rel="noreferrer">Meta App Dashboard</a>,
-                create an app, then add the <strong>Instagram</strong> product → <strong>API setup with Instagram login</strong>.
-                Copy your <strong>Instagram App ID</strong> and <strong>Instagram App Secret</strong> (not the Facebook ones).
+              <h2>1. Make your Instagram account for business</h2>
+              <p>On your phone, open Instagram:</p>
+              <p style={{ marginTop: 0 }}>
+                Settings → Account → Switch to professional account → Business or Creator. Make the account public.
               </p>
-              <div className="btn-row">
-                <a className="btn btn-sm" href="https://developers.facebook.com/apps/" target="_blank" rel="noreferrer">Open Meta Apps ↗</a>
-                <a className="btn btn-sm btn-ghost" href="https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/business-login" target="_blank" rel="noreferrer">Business Login docs ↗</a>
-              </div>
+              <a className="btn btn-sm" href="https://business.instagram.com/getting-started" target="_blank" rel="noreferrer">
+                Instagram help ↗
+              </a>
             </div>
 
             <div className="panel">
-              <h2>2. Add your secrets to Cloudflare</h2>
-              <p>
-                The Deploy button asks for three values. If you use the Cloudflare dashboard instead, open your
-                Worker → <strong>Settings → Variables and Secrets</strong> and add these three:
+              <h2>2. Get two numbers from Meta</h2>
+              <p>Open Meta&apos;s website. Make an app. Then find the Instagram setup.</p>
+              <p style={{ marginTop: 0 }}>
+                1. Open <a href="https://developers.facebook.com/apps/" target="_blank" rel="noreferrer">Meta apps ↗</a><br />
+                2. Select Create app → Other → Business.<br />
+                3. Type a name and your email. Select Create app.<br />
+                4. Find Instagram. Select Set up.<br />
+                5. Select the Instagram login setup.<br />
+                6. Copy the two numbers on the page. They are called App ID and App Secret. Keep the secret private.
               </p>
-              <div className="copy-row"><code>IG_APP_ID</code><span className="hint">from step 1</span></div>
-              <div className="copy-row"><code>IG_APP_SECRET</code><span className="hint">from step 1</span></div>
-              <div className="copy-row"><code>META_VERIFY_TOKEN</code><span className="hint">make up a long phrase — reuse it in step 3</span></div>
+              <a className="btn btn-sm" href="https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/business-login" target="_blank" rel="noreferrer">
+                Help with this page ↗
+              </a>
               <p className="hint" style={{ marginBottom: 0 }}>
-                The app makes its signing keys from your App Secret. You do not need to create more keys.
+                Meta may change a word. Keep the same meaning.
               </p>
             </div>
 
             <div className="panel">
-              <h2>3. Configure the Meta app</h2>
-              <p>Paste these exact values into your app in the Meta dashboard:</p>
-              <CopyRow label="Redirect URI (Business login settings)" value={redirectUri} />
-              <CopyRow label="Webhook callback URL" value={webhookUrl} />
-              <CopyRow label="Verify token (same as your secret)" value={status?.checks.verifyToken ? 'your META_VERIFY_TOKEN value' : 'set META_VERIFY_TOKEN first'} />
-              <p className="hint">
-                Under Webhooks, click <strong>Verify and save</strong>, then subscribe fields{' '}
-                <code>messages</code>, <code>messaging_postbacks</code>, <code>comments</code>.
-              </p>
-            </div>
-
-            <div className="panel">
-              <h2>4. App details and deletion URLs</h2>
-              <p>In <strong>App Settings → Basic</strong>, paste:</p>
-              <CopyRow label="Privacy Policy URL" value={privacyUrl} />
-              <CopyRow label="Terms of Service URL" value={termsUrl} />
-              <CopyRow label="Deauthorize Callback URL" value={deauthorizeUrl} />
-              <CopyRow label="Data Deletion Request URL" value={deletionUrl} />
-            </div>
-
-            <div className="panel">
-              <h2>5. Add yourself as a tester</h2>
+              <h2>3. Check your app settings</h2>
               <p>
-                In <strong>App Roles → Roles → Add user → Instagram Tester</strong>, enter your Instagram username
-                (no @). Then open <a href="https://www.instagram.com/accounts/manage_access/" target="_blank" rel="noreferrer">Instagram tester invites</a>{' '}
-                and accept. Your Instagram account must be <strong>Business or Creator</strong>, and public.
+                If you used the blue button on GitHub, these three values are already set. You can skip this step.
               </p>
-              <div className="hero-actions">
+              <p>
+                If not, open <a href="https://dash.cloudflare.com/" target="_blank" rel="noreferrer">Cloudflare ↗</a>.
+                Find your app. Open Settings → Variables and Secrets. Add these:
+              </p>
+              <div className="copy-row"><code>App ID</code><span className="hint">write it as: IG_APP_ID</span></div>
+              <div className="copy-row"><code>App Secret</code><span className="hint">write it as: IG_APP_SECRET</span></div>
+              <div className="copy-row"><code>My phrase</code><span className="hint">write it as: META_VERIFY_TOKEN</span></div>
+              <p className="hint" style={{ marginBottom: 0 }}>
+                My phrase = any long sentence you make up. Use the same one in step 4.
+              </p>
+            </div>
+
+            <div className="panel">
+              <h2>4. Tell Meta where to send messages</h2>
+              <p>On the same Meta page, paste these two links:</p>
+              <CopyRow label="Login return link" value={callbackUrl} />
+              <CopyRow label="Messages link" value={messageUrl} />
+              <p>
+                Now find Webhooks in the left menu. Paste the Messages link there. Paste your phrase in Verify token.
+                Select Verify and save. Then select these three boxes: messages, messaging_postbacks, comments. Save.
+              </p>
+              <a className="btn btn-sm" href="https://developers.facebook.com/documentation/instagram-platform/webhooks/setup" target="_blank" rel="noreferrer">
+                Help with webhooks ↗
+              </a>
+            </div>
+
+            <div className="panel">
+              <h2>5. Add four links in Meta</h2>
+              <p>In Meta, go to App Settings → Basic. Paste these links:</p>
+              <CopyRow label="Privacy link" value={privacyUrl} />
+              <CopyRow label="Terms link" value={termsUrl} />
+              <CopyRow label="When user leaves" value={leaveUrl} />
+              <CopyRow label="When user deletes data" value={deleteUrl} />
+              <p className="hint" style={{ marginBottom: 0 }}>Select Save changes.</p>
+            </div>
+
+            <div className="panel">
+              <h2>6. Add yourself as a tester</h2>
+              <p>
+                1. In Meta, go to App Roles → Roles → Add user.<br />
+                2. Select Instagram Tester. Do not select Tester.<br />
+                3. Type your Instagram username. No @.<br />
+                4. Send the invite.<br />
+                5. On your phone, open{' '}
+                <a href="https://www.instagram.com/accounts/manage_access/" target="_blank" rel="noreferrer">Instagram invites ↗</a>.
+                Select Tester Invites. Accept.
+              </p>
+            </div>
+
+            <div className="panel">
+              <h2>7. Connect your Instagram</h2>
+              <p>Select the button below. Log in with Instagram. Select Allow.</p>
+              <div className="hero-actions" style={{ marginTop: 12 }}>
                 <ConnectButton label="Connect Instagram" />
               </div>
             </div>
@@ -146,7 +185,7 @@ export default function SetupWizard() {
 
           <aside>
             <div className="sticky-save panel">
-              <h3>Live status</h3>
+              <h3>Setup check</h3>
               {error && <div className="alert alert-error">{error}</div>}
               <div className="status-list">
                 {CHECK_LABELS.map(({ key, label, hint }) => {
@@ -160,9 +199,9 @@ export default function SetupWizard() {
                 })}
               </div>
               <div className="hint" style={{ margin: '14px 0' }}>
-                Connected accounts: <strong>{status?.connectedAccounts ?? 0}</strong>
+                Accounts connected: <strong>{status?.connectedAccounts ?? 0}</strong>
               </div>
-              <button className="btn" style={{ width: '100%' }} onClick={() => void refresh()}>Refresh status</button>
+              <button className="btn" style={{ width: '100%' }} onClick={() => void refresh()}>Run check again</button>
             </div>
           </aside>
         </div>

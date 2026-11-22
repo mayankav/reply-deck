@@ -32,9 +32,8 @@ export default function Home() {
               <a className="btn btn-ghost" href="#how">How it works</a>
             </div>
             <p className="hint" style={{ marginTop: 18 }}>
-              Open source and self-hosted: the app runs in your own Cloudflare account with your own Meta app.
-              Personal Instagram accounts cannot use the Messaging API — switch to a free Business or Creator
-              profile first.
+              The app is yours. You set it up with your own Instagram account. No one else sees your data.
+              Personal accounts do not work. Use a free Business or Creator account.
             </p>
           </div>
 
@@ -54,7 +53,7 @@ export default function Home() {
         <div className="feature-grid">
           <div className="panel feature"><div className="num">01</div><h3>Visual builder</h3><p>Up to 10 cards, each with an image, title, subtitle, and three buttons. Preview on a phone before saving.</p></div>
           <div className="panel feature"><div className="num">02</div><h3>Keyword &amp; comment triggers</h3><p>Reply to a DM like “MENU” with a carousel, or privately reply to a Reel comment like “INFO”.</p></div>
-          <div className="panel feature"><div className="num">03</div><h3>Stays connected</h3><p>Tokens are encrypted at rest and refreshed automatically every day, 45 days before they expire.</p></div>
+          <div className="panel feature"><div className="num">03</div><h3>Stays connected</h3><p>The app renews your Instagram login every day. You do not need to connect again.</p></div>
         </div>
       </main>
       <footer className="footer">
