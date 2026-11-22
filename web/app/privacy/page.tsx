@@ -50,8 +50,8 @@ export default function PrivacyPage() {
           <h2>Third parties</h2>
           <p>
             Authentication, messaging, and webhooks are provided by Meta (Instagram Graph API). Application hosting
-            and storage are provided by Cloudflare. Uploaded cover images are served from a public Cloudflare R2 URL
-            so that Instagram can display them.
+            and storage are provided by Cloudflare. Uploaded cover images are stored in Cloudflare KV and served
+            from your app so that Instagram can display them.
           </p>
         </div>
       </main>

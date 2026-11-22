@@ -86,8 +86,8 @@ export async function handleUpload(request: Request, env: Env): Promise<Response
   if ((file as File).size > MAX_UPLOAD_BYTES) throw new HttpError('Images must be 8 MB or smaller', 413);
 
   const key = `${user.ig_account_id}/${crypto.randomUUID()}.${extension}`;
-  await env.BUCKET.put(key, await (file as File).arrayBuffer(), {
-    httpMetadata: { contentType: type },
+  await env.IMAGES.put(key, await (file as File).arrayBuffer(), {
+    metadata: { contentType: type },
   });
 
   const url = `${new URL(request.url).origin}/api/assets/${key}`;
@@ -104,13 +104,14 @@ export async function handleGetCarousel(request: Request, env: Env, pathname: st
 export async function handleGetAsset(request: Request, env: Env, pathname: string): Promise<Response> {
   const key = decodeURIComponent(pathname.slice('/api/assets/'.length));
   if (!key || key.includes('..')) throw new HttpError('Asset not found', 404);
-  const object = await env.BUCKET.get(key);
-  if (!object) throw new HttpError('Asset not found', 404);
-  const headers = new Headers();
-  object.writeHttpMetadata(headers);
-  headers.set('Content-Type', object.httpMetadata?.contentType ?? 'application/octet-stream');
-  headers.set('Cache-Control', 'public, max-age=31536000, immutable');
-  return new Response(object.body, { headers });
+  const stored = await env.IMAGES.getWithMetadata<{ contentType?: string }>(key, 'arrayBuffer');
+  if (!stored.value) throw new HttpError('Asset not found', 404);
+  return new Response(stored.value, {
+    headers: {
+      'Content-Type': stored.metadata?.contentType ?? 'application/octet-stream',
+      'Cache-Control': 'public, max-age=31536000, immutable',
+    },
+  });
 }
 
 export function isCarouselConfig(value: unknown): value is CarouselConfig {

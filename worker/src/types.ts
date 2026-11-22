@@ -1,6 +1,6 @@
 export interface Env {
   DB: D1Database;
-  BUCKET: R2Bucket;
+  IMAGES: KVNamespace;
   IG_APP_ID: string;
   IG_APP_SECRET: string;
   SESSION_SECRET?: string;
