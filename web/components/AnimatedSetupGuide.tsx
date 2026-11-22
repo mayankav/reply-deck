@@ -107,8 +107,10 @@ export default function AnimatedSetupGuide() {
         skip: 'Skip if your profile already shows Business or Creator.',
         body: (
           <>
-            <p>On your phone, open Instagram. Go to Settings → Account → Switch to professional account. Select Business or Creator.</p>
-            <p>Make the account public. Settings → Privacy → Public account.</p>
+            <p>1. On your phone, open Instagram.</p>
+            <p>2. Go to Settings → Account → Switch to professional account.</p>
+            <p>3. Select Business or Creator.</p>
+            <p>4. Make the account public.</p>
             <p><a href="https://business.instagram.com/getting-started" target="_blank" rel="noreferrer">Instagram help ↗</a></p>
           </>
         ),
