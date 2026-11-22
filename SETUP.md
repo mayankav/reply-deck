@@ -33,7 +33,9 @@ Skip this if your Instagram profile shows Business or Creator.
 
 ## Step 2 — Get two numbers from Meta
 
-Skip the setup if you already have a Meta app with Instagram login. You still need the two numbers.
+Do only one of the two paths. Both paths end at "Copy the numbers".
+
+### Path A — You do not have a Meta app
 
 1. Open https://developers.facebook.com/apps/
 2. Select Create app.
@@ -41,10 +43,22 @@ Skip the setup if you already have a Meta app with Instagram login. You still ne
 4. Type an app name and your email. Select Create app.
 5. Find Instagram. Select Set up.
 6. Select the Instagram login setup.
-7. Copy App ID. Save it.
-8. Copy App Secret. Save it. Do not share it.
+7. Go to "Copy the numbers" below.
 
-**Check:** You have two saved values.
+### Path B — You already have a Meta app
+
+1. Open https://developers.facebook.com/apps/
+2. Select your app.
+3. Find Instagram → API setup with Instagram login → Business login settings.
+4. Go to "Copy the numbers" below.
+
+### Copy the numbers
+
+1. Find App ID. Select the number. Copy it. Paste it into a note on your phone or computer.
+2. Find App Secret. Select it. Copy it. Paste it into the same note.
+3. Keep the secret private.
+
+**Check:** Your note has two values. One is short. One is long.
 **If a label looks different:** Meta changes labels. Keep the same meaning. Help: https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/business-login
 
 ---

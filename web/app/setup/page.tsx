@@ -1,7 +1,7 @@
 'use client';
 
-import SetupWizard from '@/components/SetupWizard';
+import AnimatedSetupGuide from '@/components/AnimatedSetupGuide';
 
 export default function SetupPage() {
-  return <SetupWizard />;
+  return <AnimatedSetupGuide />;
 }
