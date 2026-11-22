@@ -1,32 +1,39 @@
 # Reply Deck setup
 
-## Read this first
+You need four free accounts: Instagram, Meta, Cloudflare, GitHub.
+Time: about 20 minutes.
 
-Two websites are used:
+## Skip what you already have
 
-- **Cloudflare** runs your app for free.
-- **Meta** owns Instagram. You make the login on Meta's website.
+| If you already have this | Skip |
+| --- | --- |
+| Instagram Business or Creator account | Step 1 |
+| Meta app with Instagram login | Step 2 |
+| Your own copy of the app | Step 4 |
+| Tester invite accepted | Step 7 |
 
-You need:
-
-- An Instagram Business or Creator account.
-- A Meta account.
-- About 20 minutes.
+Do the other steps in order.
 
 ---
 
-## Step 1 — Make your Instagram account for business
+## Step 1 — Make Instagram a business account
 
-1. Open Instagram on your phone.
-2. Go to Settings → Account → Switch to professional account.
-3. Select Business or Creator.
-4. Make the account public.
+Skip this if your Instagram profile shows Business or Creator.
 
-Help: https://business.instagram.com/getting-started
+1. On your phone, open Instagram.
+2. Open Settings → Account.
+3. Select Switch to professional account.
+4. Select Business or Creator.
+5. Make the account public.
+
+**Check:** Your profile shows a category, for example Business or Creator.
+**If not:** Open Settings → Account again and repeat step 3.
 
 ---
 
 ## Step 2 — Get two numbers from Meta
+
+Skip the setup if you already have a Meta app with Instagram login. You still need the two numbers.
 
 1. Open https://developers.facebook.com/apps/
 2. Select Create app.
@@ -34,18 +41,17 @@ Help: https://business.instagram.com/getting-started
 4. Type an app name and your email. Select Create app.
 5. Find Instagram. Select Set up.
 6. Select the Instagram login setup.
-7. Copy the App ID. Save it.
-8. Copy the App Secret. Save it. Do not share it.
+7. Copy App ID. Save it.
+8. Copy App Secret. Save it. Do not share it.
 
-Help: https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/business-login
-
-Meta may change a word. Keep the same meaning.
+**Check:** You have two saved values.
+**If a label looks different:** Meta changes labels. Keep the same meaning. Help: https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/business-login
 
 ---
 
 ## Step 3 — Create your secret phrase
 
-Meta uses this phrase to check that messages really come from your app. Only you know it.
+Meta uses this phrase to check that messages come from your app. Only you know it.
 
 Rules:
 
@@ -55,55 +61,57 @@ Rules:
 
 Example: `blueRiver92mangoLamp47`
 
-Do not use the example. Type your own. Write it down. You paste it in Step 4 and Step 5.
+Do not use the example. Type your own. Write it down. You use it in Step 4 and Step 5.
 
 ---
 
 ## Step 4 — Make your own copy of the app
 
-Open this link:
+Skip this if Cloudflare already gave you a web address. Use that address as YOUR_LINK.
+
+1. Open this link:
 
 ```
 https://deploy.workers.cloudflare.com/?url=https://github.com/mayankav/reply-deck
 ```
 
-This page is the blue **Deploy to Cloudflare** button shown on the GitHub page. You do not need to find the button. The link does the same work.
+2. Select Connect GitHub. Allow. If asked, make a free account.
+3. Select Connect Cloudflare. Allow. If asked, make a free account.
+4. Type a name. Example: `my-reply-deck`
+5. Paste App ID, App Secret, and your secret phrase.
+6. Select Deploy. Wait until it finishes.
+7. Copy the web address Cloudflare shows you.
 
-1. Select Connect GitHub. Allow.
-2. Select Connect Cloudflare. Allow. If asked to sign up, do it. It is free.
-3. Type a name. Example: `my-reply-deck`
-4. Paste the App ID, the App Secret, and your secret phrase when asked.
-5. Select Deploy. Wait until it finishes.
-6. Copy the web address Cloudflare gives you.
+Call this address **YOUR_LINK**. Example: `https://my-reply-deck.example.workers.dev`
 
-Call this address **YOUR_URL**. Example: `https://my-reply-deck.example.workers.dev`
+**Check:** YOUR_LINK opens in your browser.
+**If it does not open:** Wait two minutes. Open it again.
 
 ---
 
 ## Step 5 — Tell Meta where to send messages
 
-Use YOUR_URL from Step 4.
-
 1. On your Meta page, find the Instagram login settings.
 2. Paste this in the return address box:
 
 ```
-YOUR_URL/auth/callback
+YOUR_LINK/auth/callback
 ```
 
 3. In the left menu, select Webhooks.
 4. Paste this in the callback box:
 
 ```
-YOUR_URL/webhook
+YOUR_LINK/webhook
 ```
 
-5. Paste your secret phrase from Step 3 in the verify box.
+5. Paste your secret phrase in the verify box.
 6. Select Verify and save.
-7. Select these three boxes: `messages`, `messaging_postbacks`, `comments`.
+7. Select three boxes: `messages`, `messaging_postbacks`, `comments`.
 8. Select Save.
 
-Help: https://developers.facebook.com/documentation/instagram-platform/webhooks/setup
+**Check:** The three boxes stay selected after you save.
+**If verify fails:** Your secret phrase in Meta does not match the one in Cloudflare. Fix one to match the other.
 
 ---
 
@@ -112,36 +120,42 @@ Help: https://developers.facebook.com/documentation/instagram-platform/webhooks/
 In Meta, go to App Settings → Basic. Paste:
 
 ```
-Privacy link              YOUR_URL/privacy
-Terms link                YOUR_URL/terms
-When user leaves          YOUR_URL/auth/deauthorize
-When user deletes data    YOUR_URL/privacy/data-deletion
+Privacy link              YOUR_LINK/privacy
+Terms link                YOUR_LINK/terms
+When user leaves          YOUR_LINK/auth/deauthorize
+When user deletes data    YOUR_LINK/privacy/data-deletion
 ```
 
 Select Save changes.
+
+**Check:** The four links stay saved when you reopen the page.
 
 ---
 
 ## Step 7 — Add yourself as a tester
 
-1. In Meta, go to App Roles → Roles → Add user.
+Skip this if you already accepted a tester invite.
+
+1. In Meta, open App Roles → Roles → Add user.
 2. Select Instagram Tester. Do not select Tester.
 3. Type your Instagram username. Do not type @.
 4. Send the invite.
 5. On your phone, open https://www.instagram.com/accounts/manage_access/
 6. Select Tester Invites. Accept.
 
+**Check:** The invite disappears from Tester Invites.
+
 ---
 
 ## Step 8 — Connect your account
 
-1. Open YOUR_URL in a browser.
+1. Open YOUR_LINK in a browser.
 2. Select Setup. Green dots mean the settings are correct.
 3. Select Connect Instagram.
 4. Log in. Select Allow.
-5. The dashboard opens. It shows your @username.
 
-If a dot is not green, select Run check again.
+**Check:** The dashboard opens and shows your @username.
+**If a dot is not green:** Select Run check again. Fix the item with the grey dot.
 
 ---
 
@@ -155,8 +169,9 @@ If a dot is not green, select Run check again.
 6. Upload any JPG image.
 7. Button: Open website → `View menu` → `https://example.com`
 8. Select Create carousel.
-9. From a second Instagram account, send `MENU` to your account. Use the mobile app.
-10. The carousel appears in the chat.
+9. From a second Instagram account, send `MENU` to your account. Use the phone app.
+
+**Check:** The carousel appears in the chat.
 
 ---
 
@@ -164,7 +179,9 @@ If a dot is not green, select Run check again.
 
 | Problem | Fix |
 | --- | --- |
-| Verify fails | The secret phrase in Step 3 does not match Step 5 |
+| Verify fails | The phrase in Step 3 does not match Step 5 |
 | "Account is not connected" | Accept the tester invite. Use a Business or Creator account |
-| Login shows an error | The return address must equal `YOUR_URL/auth/callback` |
-| No carousel arrives | Use the mobile app. Send within 24 hours of the last message |
+| Login shows an error | The return address must equal `YOUR_LINK/auth/callback` |
+| No carousel arrives | Use the phone app. Send within 24 hours of the last message |
+
+If you get stuck, send a picture of your screen to the person who gave you this guide.

@@ -92,6 +92,7 @@ export default function SetupWizard() {
           <div>
             <div className="panel">
               <h2>1. Make your Instagram account for business</h2>
+              <p>Skip this if your profile already shows Business or Creator.</p>
               <p>On your phone, open Instagram:</p>
               <p style={{ marginTop: 0 }}>
                 Settings → Account → Switch to professional account → Business or Creator. Make the account public.
@@ -103,6 +104,7 @@ export default function SetupWizard() {
 
             <div className="panel">
               <h2>2. Get two numbers from Meta</h2>
+              <p>Skip the setup if you already have a Meta app. Copy the two numbers and go to step 3.</p>
               <p>Open Meta&apos;s website. Make an app. Then find the Instagram setup.</p>
               <p style={{ marginTop: 0 }}>
                 1. Open <a href="https://developers.facebook.com/apps/" target="_blank" rel="noreferrer">Meta apps ↗</a><br />
@@ -123,7 +125,7 @@ export default function SetupWizard() {
             <div className="panel">
               <h2>3. Check your app settings</h2>
               <p>
-                If you used the blue button on GitHub, these three values are already set. You can skip this step.
+                Skip this if Cloudflare already gave you a web address. If you used the blue button, skip it too.
               </p>
               <p>
                 If not, open <a href="https://dash.cloudflare.com/" target="_blank" rel="noreferrer">Cloudflare ↗</a>.
@@ -165,6 +167,7 @@ export default function SetupWizard() {
 
             <div className="panel">
               <h2>6. Add yourself as a tester</h2>
+              <p>Skip this if you already accepted a tester invite.</p>
               <p>
                 1. In Meta, go to App Roles → Roles → Add user.<br />
                 2. Select Instagram Tester. Do not select Tester.<br />
