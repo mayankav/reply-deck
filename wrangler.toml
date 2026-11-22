@@ -1,0 +1,27 @@
+name = "reply-deck"
+main = "worker/src/index.ts"
+compatibility_date = "2026-11-01"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = "web/out"
+binding = "ASSETS"
+
+[vars]
+IG_API_VERSION = "v26.0"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "meta-carousel-db"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "worker/migrations"
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "meta-carousel-assets"
+
+[triggers]
+crons = ["0 3 * * *"]
+
+[observability]
+enabled = true
