@@ -15,20 +15,48 @@ interface StatusResponse {
 const CHECK_LABELS: { key: CheckKey; label: string }[] = [
   { key: 'appId', label: 'App number' },
   { key: 'appSecret', label: 'App secret' },
-  { key: 'verifyToken', label: 'Secret phrase' },
+  { key: 'verifyToken', label: 'Phrase' },
   { key: 'database', label: 'Storage' },
 ];
+
+const ICON_PATHS: Record<string, string> = {
+  phone: 'M16 6h16v36H16z M20 10h8 M20 38h8',
+  meta: 'M14 26c0-8 5-14 12-14s12 6 12 14-5 14-12 14-12-6-12-14z M20 26a6 6 0 1 0 12 0 6 6 0 1 0-12 0z M8 12v24 M40 12v24',
+  key: 'M20 28a8 8 0 1 0 0-16 8 8 0 0 0 0 16z M26 22l12 12 M34 30l4-4 M38 34l4-4',
+  cloud: 'M12 32a8 8 0 0 1 8-8 10 10 0 0 1 19 3 7 7 0 0 1-2 14H20a8 8 0 0 1-8-9z M24 28v10 M20 32l4-4 4 4',
+  chat: 'M10 12h28v22H24l-8 8v-8h-6z M16 20h16 M16 26h12',
+  link: 'M20 28l8-8 M16 22l-4 4a7 7 0 0 0 10 10l4-4 M32 26l4-4a7 7 0 0 0-10-10l-4 4',
+  user: 'M24 24a8 8 0 1 0 0-16 8 8 0 0 0 0 16z M10 42c0-8 6-12 14-12s14 4 14 12 M34 14h10 M39 9v10',
+  bolt: 'M26 6L14 26h9l-3 16 14-22h-9z',
+};
+
+function PosterIcon({ name }: { name: string }) {
+  return (
+    <svg viewBox="0 0 48 48" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+      <path d={ICON_PATHS[name] ?? ICON_PATHS.bolt} />
+    </svg>
+  );
+}
+
+function Arrow({ flip }: { flip: boolean }) {
+  return (
+    <svg className={flip ? 'flip' : ''} viewBox="0 0 60 60" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M6 12C26 4 50 14 46 36c-2 12-16 16-24 8" />
+      <path d="M15 37l7 7 7-8" />
+    </svg>
+  );
+}
 
 function CopyRow({ label, value }: { label: string; value: string }) {
   const [copied, setCopied] = useState(false);
   return (
-    <div className="yellow-copy">
+    <div className="poster-copy-row">
       <div>
-        <div className="yellow-label">{label}</div>
+        <div className="poster-copy-label">{label}</div>
         <code>{value}</code>
       </div>
       <button
-        className="yellow-btn"
+        className="poster-copy-btn"
         onClick={() => {
           void navigator.clipboard.writeText(value).then(() => {
             setCopied(true);
@@ -42,20 +70,21 @@ function CopyRow({ label, value }: { label: string; value: string }) {
   );
 }
 
-function Step({ number, side, title, children, delay }: {
-  number: number;
+function Step({ side, title, icon, children, delay }: {
   side: 'left' | 'right';
   title: string;
+  icon: string;
   children: React.ReactNode;
   delay: number;
 }) {
   return (
-    <div className={`guide-step ${side}`}>
-      <div className="guide-badge" style={{ animationDelay: `${delay}s` }}>{number}</div>
-      <div className="guide-card" style={{ animationDelay: `${delay + 0.12}s` }}>
-        <h2>{title}</h2>
-        {children}
+    <div className={`poster-step ${side}`} style={{ animationDelay: `${delay}s` }}>
+      <div className="poster-text">
+        <span className="poster-tab">{title}</span>
+        <div className="poster-copy">{children}</div>
       </div>
+      <div className="poster-arrow"><Arrow flip={side === 'right'} /></div>
+      <div className="poster-icon"><PosterIcon name={icon} /></div>
     </div>
   );
 }
@@ -89,118 +118,84 @@ export default function AnimatedSetupGuide() {
   return (
     <>
       <Header />
-      <main className="container guide">
-        <div className="eyebrow">First use</div>
-        <h1>Set up your app</h1>
-        <p className="lede">Do these steps one time. Then make carousels. About 20 minutes.</p>
+      <main className="poster">
+        <div className="poster-head">Steps to set up Reply Deck</div>
+        <div className="poster-body">
+          <div className="poster-status">
+            {CHECK_LABELS.map(({ key, label }) => (
+              <div key={key}><span className={status?.checks[key] ? 'dot ok' : 'dot'} /> {label}</div>
+            ))}
+            <div>Accounts: <strong>{status?.connectedAccounts ?? 0}</strong></div>
+            <button className="poster-small-btn" onClick={() => void refresh()}>Check again</button>
+          </div>
+          <p className="poster-intro">Eight steps. About 20 minutes. Skip what you already have.</p>
 
-        <div className="guide-status">
-          {CHECK_LABELS.map(({ key, label }) => (
-            <div className="guide-status-item" key={key}>
-              <span className={status?.checks[key] ? 'dot ok' : 'dot'} />
-              <span>{label}</span>
-            </div>
-          ))}
-          <div className="guide-status-item">Accounts: <strong>{status?.connectedAccounts ?? 0}</strong></div>
-          <button className="btn btn-sm" onClick={() => void refresh()}>Run check again</button>
-        </div>
-
-        <div className="guide-skip">
-          <strong>Skip what you already have:</strong> Business Instagram → step 1. Meta app → step 2.
-          Deployed copy → step 4. Tester invite → step 7.
-        </div>
-
-        <div className="guide-timeline">
-          <Step number={1} side="right" title="Make Instagram for business" delay={0.1}>
-            <p className="skip">Skip if your profile shows Business or Creator.</p>
+          <Step side="right" title="Make Instagram for business" icon="phone" delay={0.1}>
+            <p>Skip if your profile shows Business or Creator.</p>
             <p>On your phone: Settings → Account → Switch to professional account → Business or Creator. Make the account public.</p>
-            <a className="yellow-link" href="https://business.instagram.com/getting-started" target="_blank" rel="noreferrer">Instagram help ↗</a>
-            <p className="check"><strong>Check:</strong> Your profile shows a category.</p>
+            <p><strong>Check:</strong> Your profile shows a category.</p>
           </Step>
 
-          <Step number={2} side="left" title="Get two numbers from Meta" delay={0.55}>
-            <p className="skip">Do only one path. Both paths end at "Copy the numbers".</p>
-            <p><strong>Path A — No Meta app yet</strong><br />
-              1. Open <a className="yellow-link" href="https://developers.facebook.com/apps/" target="_blank" rel="noreferrer">Meta apps ↗</a><br />
-              2. Create app → Other → Business.<br />
-              3. Type a name and email. Create app.<br />
-              4. Find Instagram. Select Set up.<br />
-              5. Select the Instagram login setup.</p>
-            <p><strong>Path B — You already have a Meta app</strong><br />
-              1. Open Meta apps. Select your app.<br />
-              2. Find Instagram → API setup with Instagram login → Business login settings.</p>
-            <p><strong>Copy the numbers</strong><br />
-              1. Find App ID. Select the number. Copy it. Paste it into a note.<br />
-              2. Find App Secret. Select it. Copy it. Paste it into the same note.<br />
-              3. Keep the secret private.</p>
-            <p className="check"><strong>Check:</strong> Your note has two values. One short. One long.</p>
+          <Step side="left" title="Get two numbers from Meta" icon="meta" delay={0.5}>
+            <p>Do only one path. Both end at “Copy the numbers”.</p>
+            <p><strong>Path A — No Meta app:</strong> Open <a href="https://developers.facebook.com/apps/" target="_blank" rel="noreferrer">Meta apps ↗</a>. Create app → Other → Business. Type a name and email. Create app. Find Instagram. Set up. Select the Instagram login setup.</p>
+            <p><strong>Path B — Have a Meta app:</strong> Open Meta apps. Select your app. Find Instagram → login setup → Business login settings.</p>
+            <p><strong>Copy the numbers:</strong> Find App ID. Select it. Copy it. Paste it into a note. Find App Secret. Select it. Copy it. Paste it into the same note. Keep the secret private.</p>
+            <p><strong>Check:</strong> Your note has two values. One short. One long.</p>
           </Step>
 
-          <Step number={3} side="right" title="Create your secret phrase" delay={1}>
+          <Step side="right" title="Create your secret phrase" icon="key" delay={0.9}>
             <p>Meta uses it to check messages. Only you know it.</p>
-            <p>Use 20 or more letters and numbers. No spaces. Not used anywhere else.</p>
-            <p>Example: <code>blueRiver92mangoLamp47</code></p>
-            <p className="skip">Do not use the example. Type your own. Write it down. You paste it in steps 4 and 5.</p>
-            <p className="check"><strong>Check:</strong> You wrote your phrase on paper.</p>
+            <p>Use 20 or more letters and numbers. No spaces. Not used anywhere else. Example: <code>blueRiver92mangoLamp47</code></p>
+            <p>Do not use the example. Type your own. Write it down. You paste it in steps 4 and 5.</p>
+            <p><strong>Check:</strong> You wrote your phrase on paper.</p>
           </Step>
 
-          <Step number={4} side="left" title="Make your own copy of the app" delay={1.45}>
-            <p className="skip">Skip if Cloudflare already gave you a web address. Use it as YOUR_LINK.</p>
-            <p>Open this link:</p>
+          <Step side="left" title="Make your own copy of the app" icon="cloud" delay={1.3}>
+            <p>Skip if Cloudflare already gave you a web address. Use it as YOUR_LINK.</p>
             <CopyRow label="Deploy link" value="https://deploy.workers.cloudflare.com/?url=https://github.com/mayankav/reply-deck" />
-            <p>1. Connect GitHub. Allow. Make a free account if asked.<br />
-              2. Connect Cloudflare. Allow. Make a free account if asked.<br />
-              3. Type a name. Example: <code>my-reply-deck</code><br />
-              4. Paste App ID, App Secret, secret phrase.<br />
-              5. Select Deploy. Wait. Copy the web address.</p>
+            <p>Open the link. Connect GitHub. Allow. Connect Cloudflare. Allow. Make free accounts if asked. Type a name, for example <code>my-reply-deck</code>. Paste App ID, App Secret, secret phrase. Select Deploy. Wait. Copy the web address.</p>
             <p>Call that address <strong>YOUR_LINK</strong>.</p>
-            <p className="check"><strong>Check:</strong> YOUR_LINK opens in your browser.</p>
+            <p><strong>Check:</strong> YOUR_LINK opens in your browser.</p>
           </Step>
 
-          <Step number={5} side="right" title="Tell Meta where to send messages" delay={1.9}>
+          <Step side="right" title="Tell Meta where to send messages" icon="chat" delay={1.7}>
             <p>On your Meta page, find the Instagram login settings.</p>
             <CopyRow label="Return address" value={callbackUrl} />
             <p>In the left menu, select Webhooks.</p>
             <CopyRow label="Messages address" value={messageUrl} />
-            <p>Paste your secret phrase in Verify token. Select Verify and save. Select three boxes: <code>messages</code>, <code>messaging_postbacks</code>, <code>comments</code>. Save.</p>
-            <p className="check"><strong>Check:</strong> The three boxes stay selected.</p>
+            <p>Paste your phrase in Verify token. Select Verify and save. Select three boxes: messages, messaging_postbacks, comments. Save.</p>
+            <p><strong>Check:</strong> The three boxes stay selected.</p>
           </Step>
 
-          <Step number={6} side="left" title="Add four links in Meta" delay={2.35}>
+          <Step side="left" title="Add four links in Meta" icon="link" delay={2.1}>
             <p>In Meta, go to App Settings → Basic. Paste:</p>
             <CopyRow label="Privacy link" value={privacyUrl} />
             <CopyRow label="Terms link" value={termsUrl} />
             <CopyRow label="When user leaves" value={leaveUrl} />
             <CopyRow label="When user deletes data" value={deleteUrl} />
-            <p>Select Save changes.</p>
-            <p className="check"><strong>Check:</strong> The four links stay saved.</p>
+            <p>Select Save changes. <strong>Check:</strong> The four links stay saved.</p>
           </Step>
 
-          <Step number={7} side="right" title="Add yourself as a tester" delay={2.8}>
-            <p className="skip">Skip if you already accepted a tester invite.</p>
-            <p>1. In Meta: App Roles → Roles → Add user.<br />
-              2. Select Instagram Tester. Not Tester.<br />
-              3. Type your username. No @.<br />
-              4. Send the invite.<br />
-              5. On your phone, open <a className="yellow-link" href="https://www.instagram.com/accounts/manage_access/" target="_blank" rel="noreferrer">Instagram invites ↗</a>. Select Tester Invites. Accept.</p>
-            <p className="check"><strong>Check:</strong> The invite disappears.</p>
+          <Step side="right" title="Add yourself as a tester" icon="user" delay={2.5}>
+            <p>Skip if you already accepted a tester invite.</p>
+            <p>In Meta: App Roles → Roles → Add user. Select Instagram Tester. Not Tester. Type your username. No @. Send the invite.</p>
+            <p>On your phone, open <a href="https://www.instagram.com/accounts/manage_access/" target="_blank" rel="noreferrer">Instagram invites ↗</a>. Select Tester Invites. Accept.</p>
+            <p><strong>Check:</strong> The invite disappears.</p>
           </Step>
 
-          <Step number={8} side="left" title="Connect your account" delay={3.25}>
+          <Step side="left" title="Connect your account" icon="bolt" delay={2.9}>
             <p>Open YOUR_LINK. Select Setup. Green dots mean the settings are correct.</p>
             <p>Select Connect Instagram. Log in. Select Allow.</p>
-            <div className="guide-connect"><ConnectButton label="Connect Instagram" /></div>
-            <p className="check"><strong>Check:</strong> The dashboard shows your @username.</p>
+            <div className="poster-connect"><ConnectButton label="Connect Instagram" /></div>
+            <p><strong>Check:</strong> The dashboard shows your @username.</p>
           </Step>
-        </div>
 
-        <div className="panel" style={{ marginTop: 8 }}>
-          <h2>Next: test it</h2>
-          <p style={{ margin: 0 }}>
-            Select New carousel. Name it <code>Test</code>. Trigger: DM keyword → Exact → <code>MENU</code>.
-            Add a title, a cover image, and a button. Save. Send <code>MENU</code> from another account on your phone.
-          </p>
+          <div className="poster-next">
+            <strong>Next: test it.</strong> New carousel → name Test → DM keyword → Exact → MENU. Add a title, cover image, and button. Save. Send MENU from another account on your phone.
+          </div>
         </div>
+        <div className="poster-foot">Reply Deck · github.com/mayankav/reply-deck</div>
       </main>
     </>
   );
