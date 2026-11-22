@@ -15,7 +15,7 @@ interface StatusResponse {
 const CHECK_LABELS: { key: CheckKey; label: string; hint: string }[] = [
   { key: 'appId', label: 'App number is set', hint: 'From Meta' },
   { key: 'appSecret', label: 'App secret is set', hint: 'From Meta' },
-  { key: 'verifyToken', label: 'My phrase is set', hint: 'Used in step 4' },
+  { key: 'verifyToken', label: 'Secret phrase is set', hint: 'From step 3' },
   { key: 'database', label: 'Storage is ready', hint: 'Your saved carousels' },
 ];
 
@@ -131,9 +131,11 @@ export default function SetupWizard() {
               </p>
               <div className="copy-row"><code>App ID</code><span className="hint">write it as: IG_APP_ID</span></div>
               <div className="copy-row"><code>App Secret</code><span className="hint">write it as: IG_APP_SECRET</span></div>
-              <div className="copy-row"><code>My phrase</code><span className="hint">write it as: META_VERIFY_TOKEN</span></div>
+              <div className="copy-row"><code>Secret phrase</code><span className="hint">write it as: META_VERIFY_TOKEN</span></div>
               <p className="hint" style={{ marginBottom: 0 }}>
-                My phrase = any long sentence you make up. Use the same one in step 4.
+                Meta uses this phrase to check that messages come from your app. Make your own. Use 20 or more
+                letters and numbers, with no spaces. Example: blueRiver92mangoLamp47. Do not use the example.
+                Write yours down. You paste it in step 4.
               </p>
             </div>
 
@@ -143,7 +145,7 @@ export default function SetupWizard() {
               <CopyRow label="Login return link" value={callbackUrl} />
               <CopyRow label="Messages link" value={messageUrl} />
               <p>
-                Now find Webhooks in the left menu. Paste the Messages link there. Paste your phrase in Verify token.
+                Now find Webhooks in the left menu. Paste the Messages link there. Paste your secret phrase from step 3 in Verify token.
                 Select Verify and save. Then select these three boxes: messages, messaging_postbacks, comments. Save.
               </p>
               <a className="btn btn-sm" href="https://developers.facebook.com/documentation/instagram-platform/webhooks/setup" target="_blank" rel="noreferrer">

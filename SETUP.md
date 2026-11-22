@@ -43,15 +43,19 @@ Meta may change a word. Keep the same meaning.
 
 ---
 
-## Step 3 — Make one sentence
+## Step 3 — Create your secret phrase
 
-Make up a long sentence. Example:
+Meta uses this phrase to check that messages really come from your app. Only you know it.
 
-```
-blue-river-92-mango-lamp
-```
+Rules:
 
-Save it. You use it in Step 4 and Step 5.
+- 20 or more letters and numbers
+- no spaces
+- not used anywhere else
+
+Example: `blueRiver92mangoLamp47`
+
+Do not use the example. Type your own. Write it down. You paste it in Step 4 and Step 5.
 
 ---
 
@@ -68,7 +72,7 @@ This page is the blue **Deploy to Cloudflare** button shown on the GitHub page. 
 1. Select Connect GitHub. Allow.
 2. Select Connect Cloudflare. Allow. If asked to sign up, do it. It is free.
 3. Type a name. Example: `my-reply-deck`
-4. Paste the App ID, the App Secret, and your sentence when asked.
+4. Paste the App ID, the App Secret, and your secret phrase when asked.
 5. Select Deploy. Wait until it finishes.
 6. Copy the web address Cloudflare gives you.
 
@@ -94,7 +98,7 @@ YOUR_URL/auth/callback
 YOUR_URL/webhook
 ```
 
-5. Paste your sentence from Step 3 in the verify box.
+5. Paste your secret phrase from Step 3 in the verify box.
 6. Select Verify and save.
 7. Select these three boxes: `messages`, `messaging_postbacks`, `comments`.
 8. Select Save.
@@ -160,7 +164,7 @@ If a dot is not green, select Run check again.
 
 | Problem | Fix |
 | --- | --- |
-| Verify fails | The sentence in Step 3 does not match Step 5 |
+| Verify fails | The secret phrase in Step 3 does not match Step 5 |
 | "Account is not connected" | Accept the tester invite. Use a Business or Creator account |
 | Login shows an error | The return address must equal `YOUR_URL/auth/callback` |
 | No carousel arrives | Use the mobile app. Send within 24 hours of the last message |

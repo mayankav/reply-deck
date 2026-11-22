@@ -21,7 +21,7 @@ On that link, Cloudflare asks for three values:
 ```
 App ID       the first number from Meta
 App Secret   the second number from Meta
-My phrase    a long sentence you make up
+Secret phrase  20+ letters and numbers, no spaces. Example: blueRiver92mangoLamp47. Make your own.
 ```
 
 The app makes its other keys from the App Secret. You do not create more keys.
