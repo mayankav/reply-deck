@@ -331,4 +331,47 @@ code { background: #0d1429; padding: 2px 6px; border-radius: 5px; font-size: 13p
   .poster-head, .poster-step { animation: none; opacity: 1; }
 }
 
+.wiz { max-width: 880px; margin: 0 auto; padding: 32px 20px 80px; }
+.wiz-head { padding: 8px 4px 20px; }
+.wiz-eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: .14em; color: var(--accent-2); font-weight: 800; }
+.wiz-head h1 { font-size: 34px; margin: 8px 0; color: var(--text); }
+.wiz-head > p { font-size: 16px; color: var(--muted); margin: 0; max-width: 640px; }
+.wiz-progress { display: flex; gap: 6px; align-items: center; margin-top: 18px; }
+.wiz-progress span { height: 5px; width: 34px; border-radius: 99px; background: var(--border); }
+.wiz-progress span.on { background: linear-gradient(90deg, #feda75, #e1306c); }
+.wiz-progress small { margin-left: 8px; color: var(--muted); font-size: 12px; }
+.wiz-status { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; font-size: 12px; color: var(--muted); margin-bottom: 18px; }
+.wiz-status span { display: inline-flex; align-items: center; gap: 6px; }
+.wiz-small-btn { border: 1px solid var(--border); background: transparent; color: var(--text); border-radius: 7px; padding: 5px 10px; cursor: pointer; font-size: 12px; }
+.wiz-card { background: #fff; color: #211d2e; border-radius: 22px; padding: 34px 38px; box-shadow: 0 24px 70px rgba(0, 0, 0, .35); }
+.wiz-card.next { animation: wizInNext .45s ease-out both; }
+.wiz-card.back { animation: wizInBack .45s ease-out both; }
+.wiz-step + .wiz-step { margin-top: 30px; }
+.wiz-step-head { display: flex; align-items: center; gap: 14px; }
+.wiz-icon { width: 46px; height: 46px; border-radius: 13px; background: linear-gradient(135deg, #feda75, #e1306c); display: grid; place-items: center; color: #211d2e; flex: 0 0 46px; }
+.wiz-icon svg { width: 26px; height: 26px; }
+.wiz-step h2 { font-size: 22px; margin: 0; color: #211d2e; }
+.wiz-skip { margin: 14px 0 0; padding: 10px 14px; background: #f6f1ff; border-left: 3px solid #8b5cf6; border-radius: 8px; font-size: 14px; color: #5b4b7a; }
+.wiz-body { margin-top: 14px; font-size: 16px; line-height: 1.75; color: #3a3448; }
+.wiz-body p { margin: 0 0 12px; }
+.wiz-body code { background: #f3eefc; color: #7c3a8f; padding: 2px 6px; border-radius: 5px; font-size: 14px; }
+.wiz-body a { color: #d62976; text-decoration: underline; font-weight: 600; }
+.wiz-callout { background: #fff5f8; border: 1px solid #fbd9e5; border-radius: 10px; padding: 12px 14px; }
+.wiz-check { margin: 14px 0 0; font-size: 14px; color: #0f7a63; background: #eafaf5; border-radius: 9px; padding: 10px 13px; }
+.wiz-divider { height: 1px; background: #ece7f2; margin: 26px 0; }
+.wiz-copy { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: #f8f6fc; border: 1px solid #e8e2f2; border-radius: 11px; padding: 12px 14px; margin: 10px 0; }
+.wiz-copy-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .05em; color: #8a5aa8; }
+.wiz-copy code { display: block; margin-top: 5px; word-break: break-all; font-size: 13px; background: transparent; padding: 0; color: #2a2440; }
+.wiz-copy-btn { border: 0; border-radius: 8px; background: #211d2e; color: #fff; padding: 8px 14px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.wiz-connect { margin: 14px 0; }
+.wiz-connect .btn { background: #211d2e; color: #fff; border-color: #211d2e; }
+.wiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 34px; padding-top: 22px; border-top: 1px solid #ece7f2; }
+.wiz-back { border: 0; background: transparent; color: #6c6480; font-size: 15px; cursor: pointer; }
+.wiz-back:disabled { opacity: .4; cursor: default; }
+.wiz-next { border: 0; border-radius: 11px; padding: 13px 26px; font-size: 15px; font-weight: 800; color: #fff; cursor: pointer; background: linear-gradient(90deg, #e1306c, #962fbf); box-shadow: 0 10px 24px rgba(225, 48, 108, .28); }
+@keyframes wizInNext { from { opacity: 0; transform: translateX(28px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes wizInBack { from { opacity: 0; transform: translateX(-28px); } to { opacity: 1; transform: translateX(0); } }
+@media (max-width: 640px) { .wiz-card { padding: 24px 20px; } .wiz-head h1 { font-size: 28px; } .wiz-body { font-size: 15px; } }
+@media (prefers-reduced-motion: reduce) { .wiz-card.next, .wiz-card.back { animation: none; } }
+
 .footer { border-top: 1px solid var(--border); padding: 22px 32px; color: var(--muted); font-size: 13px; display: flex; gap: 18px; }
