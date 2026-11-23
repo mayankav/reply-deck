@@ -1,0 +1,182 @@
+[
+  {
+    "name": "01-instagram",
+    "file": "docs/screenshots/01-instagram.png",
+    "boxes": {
+      ".wiz-step-head": {
+        "x": 338,
+        "y": 340.1875,
+        "width": 764,
+        "height": 46
+      },
+      ".wiz-skip": {
+        "x": 338,
+        "y": 400.1875,
+        "width": 764,
+        "height": 41.6875
+      },
+      ".wiz-check": {
+        "x": 338,
+        "y": 680.84375,
+        "width": 764,
+        "height": 41.6875
+      },
+      ".wiz-next": {
+        "x": 997.40625,
+        "y": 779.53125,
+        "width": 104.59375,
+        "height": 49.25
+      }
+    }
+  },
+  {
+    "name": "02-meta-app",
+    "file": "docs/screenshots/02-meta-app.png",
+    "boxes": {
+      ".wiz-body": {
+        "x": 338,
+        "y": 402.1875,
+        "width": 764,
+        "height": 206.96875
+      },
+      ".wiz-callout": {
+        "x": 338,
+        "y": 552.5625,
+        "width": 764,
+        "height": 56.59375
+      },
+      ".wiz-check": {
+        "x": 338,
+        "y": 623.15625,
+        "width": 764,
+        "height": 41.6875
+      },
+      ".wiz-next": {
+        "x": 997.40625,
+        "y": 721.84375,
+        "width": 104.59375,
+        "height": 49.25
+      }
+    }
+  },
+  {
+    "name": "03-copy-numbers",
+    "file": "docs/screenshots/03-copy-numbers.png",
+    "boxes": {
+      ".wiz-body": {
+        "x": 338,
+        "y": 402.1875,
+        "width": 764,
+        "height": 145.78125
+      },
+      ".wiz-callout": {
+        "x": 338,
+        "y": 491.375,
+        "width": 764,
+        "height": 56.59375
+      },
+      ".wiz-check": {
+        "x": 338,
+        "y": 561.96875,
+        "width": 764,
+        "height": 41.6875
+      },
+      ".wiz-next": {
+        "x": 997.40625,
+        "y": 660.65625,
+        "width": 104.59375,
+        "height": 49.25
+      }
+    }
+  },
+  {
+    "name": "04-phrase-deploy",
+    "file": "docs/screenshots/04-phrase-deploy.png",
+    "boxes": {
+      ".wiz-step": {
+        "x": 338,
+        "y": 340.1875,
+        "width": 764,
+        "height": 295.0625
+      },
+      ".wiz-copy": {
+        "x": 338,
+        "y": 827.53125,
+        "width": 764,
+        "height": 74.1875
+      },
+      ".wiz-check": {
+        "x": 338,
+        "y": 566.5625,
+        "width": 764,
+        "height": 41.6875
+      },
+      ".wiz-next": {
+        "x": 997.40625,
+        "y": 1186.78125,
+        "width": 104.59375,
+        "height": 49.25
+      }
+    }
+  },
+  {
+    "name": "05-meta-links",
+    "file": "docs/screenshots/05-meta-links.png",
+    "boxes": {
+      ".wiz-copy-all": {
+        "x": 338,
+        "y": 946.21875,
+        "width": 152.640625,
+        "height": 45.1875
+      },
+      ".wiz-copy": {
+        "x": 338,
+        "y": 446.78125,
+        "width": 764,
+        "height": 74.1875
+      },
+      ".wiz-check": {
+        "x": 338,
+        "y": 734.9375,
+        "width": 764,
+        "height": 41.6875
+      },
+      ".wiz-next": {
+        "x": 997.40625,
+        "y": 1450.84375,
+        "width": 104.59375,
+        "height": 49.25
+      }
+    }
+  },
+  {
+    "name": "06-connect",
+    "file": "docs/screenshots/06-connect.png",
+    "boxes": {
+      ".wiz-connect": {
+        "x": 338,
+        "y": 827.53125,
+        "width": 764,
+        "height": 49.1875
+      },
+      ".wiz-callout": {
+        "x": 338,
+        "y": 890.71875,
+        "width": 764,
+        "height": 87.1875
+      },
+      ".wiz-check": {
+        "x": 338,
+        "y": 577.65625,
+        "width": 764,
+        "height": 41.6875
+      },
+      ".wiz-next": {
+        "x": 967.5625,
+        "y": 1090.59375,
+        "width": 134.4375,
+        "height": 49.25
+      }
+    }
+  }
+]

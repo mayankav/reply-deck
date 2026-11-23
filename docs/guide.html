@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reply Deck — setup with marked screens</title>
+<style>
+body{font-family:Inter,system-ui,sans-serif;max-width:1100px;margin:0 auto;padding:28px 20px 80px;color:#1d1a26;background:#faf9ff}
+h1{font-size:34px;margin-bottom:8px}h2{font-size:24px;margin:0 0 10px}h3{font-size:16px;margin:18px 0 6px}
+.lead{color:#5d5670;font-size:16px}section{background:#fff;border:1px solid #e8e3f2;border-radius:18px;padding:24px;margin:22px 0;box-shadow:0 8px 30px rgba(40,20,80,.06)}
+img{width:100%;border:1px solid #ddd5e8;border-radius:10px;display:block;margin:14px 0}
+code{background:#f2eefb;color:#6d2d8b;padding:2px 6px;border-radius:5px;font-size:14px}
+ul{padding-left:22px;line-height:1.8}li{margin:4px 0}
+.need{background:#fff5f8;border:1px solid #f3c6d6;border-radius:12px;padding:16px}
+.tag{display:inline-block;background:#e1306c;color:#fff;border-radius:99px;padding:3px 10px;font-size:12px;font-weight:700}
+</style>
+</head>
+<body>
+<h1>Reply Deck — setup with marked screens</h1>
+<p class="lead">Red boxes mark the place to look or click. Each page shows one or two steps. Do them in order.</p>
+
+<section>
+<h2>Page 1 — Make Instagram for business</h2>
+<img src="screenshots/01-instagram-marked.png" alt="Page 1 with marked areas">
+<ul>
+<li>On your phone, open <strong>Instagram</strong>.</li>
+<li>Tap <strong>Settings</strong> (the three lines).</li>
+<li>Tap <strong>Account</strong>.</li>
+<li>Tap <strong>Switch to professional account</strong>.</li>
+<li>Choose <strong>Business</strong> or <strong>Creator</strong>. Tap Continue through the screens.</li>
+<li>Open <strong>Settings → Privacy → Public account</strong>. Turn it on.</li>
+<li>Skip this page if your profile already shows Business or Creator.</li>
+<li><strong>Check:</strong> your profile shows a category. Then tap <strong>Next</strong>.</li>
+</ul>
+</section>
+
+<section>
+<h2>Page 2 — Get two numbers from Meta</h2>
+<img src="screenshots/02-meta-app-marked.png" alt="Page 2 with marked areas">
+<ul>
+<li>Open <code>https://developers.facebook.com/apps/</code>.</li>
+<li>Tap <strong>Create app</strong>.</li>
+<li>On "Create an app", choose the card <strong>Other</strong>.</li>
+<li>Choose the type <strong>Business</strong>.</li>
+<li>Fill <strong>App name</strong> (any name, for example "My Reply Deck").</li>
+<li>Fill <strong>App contact email</strong> (your email).</li>
+<li>Tap <strong>Create app</strong>.</li>
+<li>Find <strong>Instagram</strong> in the product list. Tap <strong>Set up</strong>.</li>
+<li>Select <strong>API setup with Instagram login</strong>.</li>
+<li>Open <strong>Business login settings</strong>.</li>
+<li><strong>Already have a Meta app?</strong> Open <code>developers.facebook.com/apps</code>, select your app, then follow the last two lines.</li>
+<li><strong>Check:</strong> you can see <strong>App ID</strong> and <strong>App Secret</strong> on the page.</li>
+</ul>
+</section>
+
+<section>
+<h2>Page 3 — Copy the two numbers</h2>
+<img src="screenshots/03-copy-numbers-marked.png" alt="Page 3 with marked areas">
+<ul>
+<li>Find <strong>App ID</strong>. Tap the number to select it. Copy it.</li>
+<li>Open a note app. Paste the number. Write "App ID" next to it.</li>
+<li>Find <strong>App Secret</strong>. If a Show button is present, tap it.</li>
+<li>Tap the secret to select it. Copy it. Paste it into the same note. Write "App Secret" next to it.</li>
+<li>Copy the whole value, not the first few characters. Keep the secret private.</li>
+<li><strong>Check:</strong> the note has two values. One short, one long.</li>
+</ul>
+</section>
+
+<section>
+<h2>Page 4 — Your phrase and your copy</h2>
+<img src="screenshots/04-phrase-deploy-marked.png" alt="Page 4 with marked areas">
+<ul>
+<li>Make a secret phrase: 20 or more letters and numbers, no spaces, not used anywhere else. Example: <code>blueRiver92mangoLamp47</code>. Do not use the example. Write your own on paper.</li>
+<li>Skip the deploy if Cloudflare already gave you a web address.</li>
+<li>Tap <strong>Copy</strong> on the Deploy link. Open it in a browser on a computer.</li>
+<li>At "Create an app", the <strong>repository URL</strong> is already filled. Tap <strong>Next</strong>.</li>
+<li>Tap <strong>Connect GitHub</strong>. Sign in or create a free account. Allow.</li>
+<li>Tap <strong>Connect Cloudflare</strong>. Sign in or create a free account. Allow. Signing in with GitHub is fine.</li>
+<li>Select the <strong>Git account</strong> from the dropdown.</li>
+<li>In the <strong>name field</strong>, type a name such as <code>my-reply-deck</code>.</li>
+<li>Paste <strong>App ID</strong>, <strong>App Secret</strong>, and your phrase into the three value fields when asked.</li>
+<li>Tap <strong>Deploy</strong>. Wait. Copy the web address Cloudflare gives you. Call it <strong>YOUR_LINK</strong>.</li>
+<li><strong>Check:</strong> YOUR_LINK opens in a browser.</li>
+</ul>
+</section>
+
+<section>
+<h2>Page 5 — Tell Meta where to send messages</h2>
+<img src="screenshots/05-meta-links-marked.png" alt="Page 5 with marked areas">
+<ul>
+<li>On your Meta page, find <strong>Business login settings</strong>.</li>
+<li>Paste <code>YOUR_LINK/auth/callback</code> into the <strong>return address</strong> field. Save.</li>
+<li>In the left menu, select <strong>Webhooks</strong>.</li>
+<li>Paste <code>YOUR_LINK/webhook</code> into the <strong>Callback URL</strong> field.</li>
+<li>Paste your phrase into the <strong>Verify token</strong> field.</li>
+<li>Tap <strong>Verify and save</strong>.</li>
+<li>Select the three checkboxes: <code>messages</code>, <code>messaging_postbacks</code>, <code>comments</code>. Tap <strong>Save</strong>.</li>
+<li>Open <strong>App Settings → Basic</strong>. Paste into the four fields: <strong>Privacy Policy URL</strong>, <strong>Terms of Service URL</strong>, <strong>Deauthorize Callback URL</strong>, <strong>Data Deletion Request URL</strong>.</li>
+<li>Tap <strong>Save changes</strong>.</li>
+<li><strong>Check:</strong> the boxes and links stay saved when you reopen the page.</li>
+</ul>
+</section>
+
+<section>
+<h2>Page 6 — Add a tester and connect</h2>
+<img src="screenshots/06-connect-marked.png" alt="Page 6 with marked areas">
+<ul>
+<li>In Meta, open <strong>App Roles → Roles → Add user</strong>.</li>
+<li>Choose the role <strong>Instagram Tester</strong>. Do not choose Tester.</li>
+<li>Type your Instagram username in the <strong>username</strong> field. Do not type @.</li>
+<li>Tap <strong>Send</strong> or <strong>Invite</strong>.</li>
+<li>On your phone open <code>instagram.com/accounts/manage_access/</code>. Tap <strong>Tester Invites</strong>. Tap <strong>Accept</strong>.</li>
+<li>Open YOUR_LINK. Tap <strong>Setup</strong>. Green dots mean the settings are correct.</li>
+<li>Tap <strong>Connect Instagram</strong>. Log in. Tap <strong>Allow</strong>.</li>
+<li><strong>Check:</strong> the dashboard shows your @username.</li>
+<li>To test: New carousel → name Test → DM keyword → Exact → <code>MENU</code>. Add a title, a cover image, and a button. Save. Send <code>MENU</code> from another account on your phone.</li>
+</ul>
+</section>
+
+<section class="need">
+<span class="tag">Needed from you</span>
+<h2>External screens still need marks</h2>
+<p>Cloudflare and Meta block automated screenshots of their signed-in pages. I cannot see your accounts. Send a screenshot of each screen below and I will mark every field and button on it:</p>
+<ul>
+<li>Meta: Create app screen (the form with app name and email).</li>
+<li>Meta: Instagram → API setup with Instagram login → Business login settings (App ID and App Secret).</li>
+<li>Meta: Webhooks screen (callback URL, verify token, field checkboxes).</li>
+<li>Meta: App Settings → Basic (the four URL fields).</li>
+<li>Meta: App Roles → Roles → Add user (the role dropdown and username field).</li>
+<li>Cloudflare: Create and deploy screen (three value fields and the name field).</li>
+<li>Instagram: Tester Invites screen on the phone.</li>
+</ul>
+</section>
+</body>
+</html>
